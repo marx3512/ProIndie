@@ -1,9 +1,6 @@
-var carouselWidth = $('.carousel-inner')[0].scrollWidth;
-var cardWidth = $('carousel-item').width();
-
-var scrollPosition = 0;
-
-$('.carousel-controle-next').on('click', function(){
-    scrollPosition = scrollPosition + cardWidth;
-    $('carousel-inner').animate({scrollLeft: scrollPosition}, 100);
-})
+import('../scripts/bancoDeDados.js').then(module => {
+    const minhaVariavel = module.data;
+    console.log(minhaVariavel); // Prints 'Valor da minha variável'
+  }).catch(error => {
+    console.error('Error:', error);
+  });
