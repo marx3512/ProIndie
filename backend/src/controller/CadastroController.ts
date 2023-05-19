@@ -11,8 +11,14 @@ class CadastroController{
                 email,
                 senha,
                 ocupacoes,
-                foto
+                foto,
+                descricao,
+                linkGithub,
+                linkTwitter,
+                linkInstagram
             } = req.body;
+
+            console.log(req.body);
 
             await prisma.$connect();
 
@@ -22,7 +28,11 @@ class CadastroController{
                     Email: email,
                     Senha: senha,
                     Ocupacao: ocupacoes,
-                    Foto: foto
+                    Foto: foto,
+                    Descricao: descricao,
+                    linkGithub: linkGithub,
+                    linkTwitter: linkTwitter,
+                    linkInstagram: linkInstagram
                 }
             })
 
