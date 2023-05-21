@@ -1,12 +1,14 @@
 var botao = document.getElementById("confirmarBtn");
 
 botao.addEventListener("click", (e) => {
+    var file = document.getElementById("formFile");
+    var nome = document.getElementById("typeNomeX");
     var email = document.getElementById("typeEmailX");
     var confirmEmail = document.getElementById("confirmEmail");
     var password = document.getElementById("typePasswordX");
     var confirmPassword = document.getElementById("confirmPassword");
     var occupationArea = document.getElementById("typeOccupation");
-    
+
     if(email.value === "" || confirmEmail.value == "" || password.value === "" || confirmPassword.value === "" || occupationArea.value === ""){
         alert("Existe alguns campos vazios");
         e.preventDefault();
@@ -23,11 +25,11 @@ botao.addEventListener("click", (e) => {
     }
 
     var dadosUsuario = {
-        nome: "Marx Borges Machado",
+        nome: nome.value,
         email: email.value,
         senha: password.value,
         ocupacoes: occupationArea.value,
-        foto: "Testando Front"
+        foto: file.files[0].name
     }
 
     fetch("http://localhost:3000/usuario", {

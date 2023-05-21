@@ -7,6 +7,7 @@ class CadastroController{
     async create(req: Request, res: Response){
         try {
             const {
+                foto,
                 nome,
                 email,
                 senha,
@@ -30,7 +31,7 @@ class CadastroController{
                     Email: email,
                     Senha: senha,
                     Ocupacao: ocupacoes,
-                    Foto: `http://localhost:3000/uploads/${image}`,
+                    Foto: `http://localhost:3000/uploads/${foto}`,
                     Descricao: descricao,
                     linkGithub: linkGithub,
                     linkTwitter: linkTwitter,
