@@ -40,7 +40,7 @@ botao.addEventListener("click", (e) => {
       .then(response => response.json())
       .then(data => {
         alert("Cadastro realizado com sucesso");
-        //console.log(data)
+        console.log(data)
       })
       .catch(error => {
         console.log("Ocorreu um erro:", error);
@@ -48,12 +48,4 @@ botao.addEventListener("click", (e) => {
 
     e.preventDefault();
 
-    /*console.log("Email: " + email.value);
-    console.log("ConfirmEmail: " + confirmEmail.value);
-    console.log("Password: " + password.value);
-    console.log("confirmPassword: " + confirmPassword.value);
-    console.log("OccupationArea: " + occupationArea.value);*/
-    
-
-    
 });

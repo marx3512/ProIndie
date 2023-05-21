@@ -10,7 +10,7 @@ datasource db {
 model Projetos {
   Id                Int     @id @default(autoincrement())
   Id_usuario        Int
-  Foto              String  @db.VarChar(255)
+  Foto              String? @db.VarChar(255)
   Nome              String  @db.VarChar(255)
   Descricao_projeto String  @db.VarChar(255)
   Descricao_vaga    String  @db.VarChar(255)
@@ -23,10 +23,10 @@ model Projetos {
 model Usuario {
   Id            Int        @id @default(autoincrement())
   Nome          String     @db.VarChar(255)
-  Email         String     @db.VarChar(255)
+  Email         String     @unique(map: "Email") @db.VarChar(255)
   Senha         String     @db.VarChar(255)
   Ocupacao      String     @db.VarChar(255)
-  Foto          String     @db.VarChar(255)
+  Foto          String?    @db.VarChar(255)
   Descricao     String?    @db.VarChar(255)
   linkGithub    String?    @db.VarChar(255)
   linkTwitter   String?    @db.VarChar(255)

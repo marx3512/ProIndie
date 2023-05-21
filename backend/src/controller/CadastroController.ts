@@ -11,12 +11,14 @@ class CadastroController{
                 email,
                 senha,
                 ocupacoes,
-                foto,
                 descricao,
                 linkGithub,
                 linkTwitter,
                 linkInstagram
             } = req.body;
+            const reqImage = req.file;
+            const image = reqImage?.filename;
+
 
             console.log(req.body);
 
@@ -28,7 +30,7 @@ class CadastroController{
                     Email: email,
                     Senha: senha,
                     Ocupacao: ocupacoes,
-                    Foto: foto,
+                    Foto: `http://localhost:3000/uploads/${image}`,
                     Descricao: descricao,
                     linkGithub: linkGithub,
                     linkTwitter: linkTwitter,
@@ -85,6 +87,42 @@ class CadastroController{
                 return res.status(400).json(e.message);
             }
         }
+    }
+
+    async login(req: Request, res: Response){
+        const {
+            email,
+            senha
+        } = req.body;
+
+        console.log(senha);
+
+        await prisma.$connect();
+
+        const result = await prisma.usuario.findUnique({
+            where:{
+                Email: email
+            },
+            select:{
+                Id: true,
+                Email: true,
+                Senha: true
+            }
+        })
+
+        console.log(result);
+
+        await prisma.$disconnect();
+
+        if(result == null){
+            return res.status(200).json("Usuario nao encontrado");
+        }
+
+        else if(result.Senha != String(senha)){
+            return res.status(200).json("Senha incorreta");
+        }
+
+        return res.status(200).json(result);
     }
 
     async takeAllUsers(req: Request, res: Response){
