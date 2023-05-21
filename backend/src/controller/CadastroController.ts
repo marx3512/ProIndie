@@ -141,6 +141,32 @@ class CadastroController{
             }
         }
     }
+
+    async takeOneUser(req: Request, res: Response){
+        try {
+            const id = Number(req.params.id);
+
+            await prisma.$connect();
+            const result = await prisma.usuario.findUnique({
+                where:{
+                    Id: id
+                }
+            })
+
+            if(result == null){
+                return res.status(200).json("Elemento nao encontraod");
+            }
+
+            await prisma.$disconnect();
+
+            return res.status(200).json(result);
+
+        } catch (e) {
+            if(e instanceof Error){
+                return res.status(400).json(e.message);
+            }
+        }
+    }
 }
 
 export default new CadastroController();
