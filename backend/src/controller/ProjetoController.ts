@@ -48,15 +48,9 @@ class ProjetoController{
 
     async takeAllProjetos(req: Request, res: Response){
         try {
-            const id = Number(req.params.id);
-
             await prisma.$connect();
 
-            const allProjetos = await prisma.projetos.findMany({
-                where:{
-                    Id: id
-                }
-            });
+            const allProjetos = await prisma.projetos.findMany();
 
             await prisma.$disconnect();
 
@@ -67,6 +61,24 @@ class ProjetoController{
             }
         }
     }
+
+    async takeAllProjetosUser(req: Request, res: Response){
+        const id = Number(req.params.id);
+
+        await prisma.$connect();
+        const result = await prisma.projetos.findMany({
+            where:{
+                Id_usuario: id
+            }
+        })
+
+        if(result == null){
+            return res.status(200).json("Elemento nao encontrado")
+        }
+        await prisma.$disconnect();
+
+        return res.status(200).json(result);
+    }   
 
     async takeProjetoOne(req: Request, res: Response){
         try {

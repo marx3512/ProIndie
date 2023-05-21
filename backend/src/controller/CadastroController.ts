@@ -3,9 +3,17 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+async function conectar(){
+    await prisma.$connect();
+
+    await prisma.$disconnect();
+}
+
 class CadastroController{
     async create(req: Request, res: Response){
         try {
+            conectar();
+
             const {
                 foto,
                 nome,
@@ -19,10 +27,6 @@ class CadastroController{
             } = req.body;
             const reqImage = req.file;
             const image = reqImage?.filename;
-
-
-            console.log(req.body);
-            console.log(image)
 
             await prisma.$connect();
 
@@ -155,7 +159,7 @@ class CadastroController{
             })
 
             if(result == null){
-                return res.status(200).json("Elemento nao encontraod");
+                return res.status(200).json("Elemento nao encontrado");
             }
 
             await prisma.$disconnect();

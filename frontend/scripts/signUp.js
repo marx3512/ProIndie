@@ -31,14 +31,6 @@ botao.addEventListener("click", (e) => {
     formData.append("ocupacoes", occupationArea.value);
     formData.append("image", file.files[0]);
 
-    /*var dadosUsuario = {
-        nome: nome.value,
-        email: email.value,
-        senha: password.value,
-        ocupacoes: occupationArea.value,
-        image: file.files[0]
-    }*/
-
     fetch("http://localhost:3000/usuario", {
         method: "POST",
         /*headers: {
