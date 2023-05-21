@@ -22,6 +22,7 @@ class CadastroController{
 
 
             console.log(req.body);
+            console.log(image)
 
             await prisma.$connect();
 
@@ -31,7 +32,7 @@ class CadastroController{
                     Email: email,
                     Senha: senha,
                     Ocupacao: ocupacoes,
-                    Foto: `http://localhost:3000/uploads/${foto}`,
+                    Foto: `http://localhost:3000/uploads/${image}`,
                     Descricao: descricao,
                     linkGithub: linkGithub,
                     linkTwitter: linkTwitter,
