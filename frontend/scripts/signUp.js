@@ -49,3 +49,14 @@ botao.addEventListener("click", (e) => {
     e.preventDefault();
 
 });
+function loadImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+      const image = document.getElementById("image");
+      image.src = event.target.result;
+    };
+    
+    reader.readAsDataURL(file);
+  }
