@@ -14,6 +14,13 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
         img.setAttribute("height", "100");
         img.setAttribute("src", data.Foto);
         aImage.appendChild(img);
+        
+        const aNovoProjeto = document.getElementById("novoProjeto");
+        aNovoProjeto.href = `./newProject.html?id=${id}`;
+
+        const aPerfil = document.getElementById("perfil");
+        aPerfil.href = `./perfil.html?id=${id}`;
+
     })
 
 fetch(`http://localhost:3000/projeto/`, {

@@ -25,12 +25,12 @@
                 <div class="col-2">
                     <div class="text-end dropend">
                         <a href="/" class="d-block link-dark text-decoration-none dropdown-toggle"
-                            data-bs-toggle="dropdown" arial-expanded="false">
-                            <img src="../imgs/Perfil.jpg" class="rounded-circle" width="100" height="100">
+                            data-bs-toggle="dropdown" arial-expanded="false" id="aImg">
+                            <!--<img src="../imgs/Perfil.jpg" class="rounded-circle" width="100" height="100">-->
                         </a>
                         <ul class="dropdown-menu text-small">
-                            <li><a href="./newProject.html" class="dropdown-item">New project...</a></li>
-                            <li><a href="/pages/perfil.html" class="dropdown-item">Profile</a></li>
+                            <li><a class="dropdown-item" id="aNovoProjeto">Novo projeto</a></li>
+                            <li><a class="dropdown-item" id="aPerfil">Perfil</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -50,41 +50,42 @@
                             <div class="d-flex flex-column align-items-center">
                                 <button class="btn btn-primary btn-sm mb-3" onclick="edit()">Edit</button>
                                 <div class="d-flex flex-column align-items-center" id="editable">
-                                    <img id="image" src="../imgs/Perfil.jpg" class="rounded-circle" width="150">
-                                    <h4 id="name" class="text-center mt-4">Marx Borges Machado</h4>
+                                    <img id="image" class="rounded-circle" width="150">
+                                    <h4 id="name" class="text-center mt-4"><!--Marx Borges Machado--></h4>
                                     <p id="desc">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat tortor
+                                        <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat tortor
                                         quis ex pellentesque auctor. Vivamus tristique ligula ac lorem consequat,
                                         pharetra cursus dolor faucibus. Mauris quis eros posuere, molestie ligula sed,
                                         lobortis orci. Morbi ac laoreet mauris. Integer odio metus, semper ut felis a,
-                                        fermentum varius augue.
+                                        fermentum varius augue.-->
                                     </p>
                                 </div>
-                                <div class="text-center mt-3">
+                                <!--<div class="text-center mt-3">
                                     <span class="badge rounded-pill bg-primary">Programador</span>
                                     <span class="badge rounded-pill bg-primary">Animador</span>
                                     <span class="badge rounded-pill bg-primary">Design de fase</span>
                                     <span class="badge rounded-pill bg-primary">Design de som</span>
-                                </div>
+                                </div>-->
                                 <div class="my-4"></div>
-                                <div class="text-center">
-                                    <a class="btn btn-primary" style="background-color: #dd4b39;" href="#!"
-                                        role="button">
+                                <div class="text-center" id="redesSociais">
+                                    <!--<a class="btn btn-primary" style="background-color: #dd4b39;" href="#!"
+                                        role="button" id="linkGmail">
                                         <i class="bi bi-google"></i>
                                     </a>
-                                    <!-- Github -->
+                                     Github 
                                     <a class="btn btn-primary" style="background-color: #333333;" href="#!"
-                                        role="button">
+                                        role="button" link="linkGithub">
                                         <i class="bi bi-github"></i>
                                     </a>
-                                    <!-- Twitter -->
+                                     Twitter 
                                     <a class="btn btn-primary" style="background-color: #55acee;" href="#!"
-                                        role="button">
+                                        role="button" id="linkTwitter">
                                         <i class="bi bi-twitter"></i>
                                     </a>
+                                     Instagram 
                                     <a class="btn btn-primary" style="background-color: #ac2bac;" href="#!"
-                                        role="button">
-                                        <i class="bi bi-instagram"></i>
+                                        role="button" id="linkInstagram">
+                                        <i class="bi bi-instagram"></i>-->
                                     </a>
                                 </div>
                             </div>
@@ -92,9 +93,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="row gutters-sm">
+                    <div class="row gutters-sm" id="tabelaProjetos">
                         <h6 class="d-flex mb-3">Projetos que participo</h6>
-                        <div class="col-sm-6 mb-3">
+                        <!--<div class="col-sm-6 mb-3">
                             <div class="card">
                                 <img src="../imgs/Celeste.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
@@ -117,7 +118,7 @@
                                     <a href="/" class="btn btn-primary">Go somewhere</a>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
