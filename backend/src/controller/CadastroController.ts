@@ -3,19 +3,11 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function conectar(){
-    await prisma.$connect();
-
-    await prisma.$disconnect();
-}
-
 class CadastroController{
     async create(req: Request, res: Response){
         try {
-            conectar();
 
             const {
-                foto,
                 nome,
                 email,
                 senha,
@@ -27,8 +19,6 @@ class CadastroController{
             } = req.body;
             const reqImage = req.file;
             const image = reqImage?.filename;
-
-            await prisma.$connect();
 
             const result = await prisma.usuario.create({
                 data: {
@@ -43,8 +33,6 @@ class CadastroController{
                     linkInstagram: linkInstagram
                 }
             })
-
-            await prisma.$disconnect();
 
             return res.status(200).json(result);
         } catch (e) {
