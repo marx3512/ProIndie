@@ -14,7 +14,6 @@ function edit(){
 
     const area = document.createElement("textarea")
     area.value = desc.innerHTML
-
     const b = document.createElement("button")
     b.innerHTML = "save"
     b.setAttribute("onclick", "save()")
