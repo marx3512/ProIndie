@@ -8,6 +8,9 @@ botao.addEventListener("click", (e) => {
     var password = document.getElementById("typePasswordX");
     var confirmPassword = document.getElementById("confirmPassword");
     var occupationArea = document.getElementById("typeOccupation");
+    var linkGithub = document.getElementById("linkGithub");
+    var linkTwitter = document.getElementById("linkTwitter");
+    var linkInstagram = document.getElementById("linkInstagram");
 
     if(email.value === "" || confirmEmail.value == "" || password.value === "" || confirmPassword.value === "" || occupationArea.value === ""){
         alert("Existe alguns campos vazios");
@@ -30,6 +33,18 @@ botao.addEventListener("click", (e) => {
     formData.append("senha", password.value);
     formData.append("ocupacoes", occupationArea.value);
     formData.append("image", file.files[0]);
+    if(linkGithub.value != ""){
+      formData.append("linkGithub", linkGithub.value);
+
+    }
+    if(linkTwitter.value != ""){
+      formData.append("linkTwitter", linkTwitter.value);
+
+    }
+    if(linkInstagram.value != ""){
+      formData.append("linkInstagram", linkInstagram.value);
+
+    }
 
     fetch("http://localhost:3000/usuario", {
         method: "POST",
