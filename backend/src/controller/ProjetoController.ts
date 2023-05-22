@@ -82,9 +82,30 @@ class ProjetoController{
 
     async takeProjetoOne(req: Request, res: Response){
         try {
+
+            const id = Number(req.params.id);
+
             await prisma.$connect();
 
-            const allProjetos = await prisma.projetos.findMany();
+            const allProjetos = await prisma.projetos.findMany({
+                where:{
+                    Id: id
+                },
+                select:{
+                    Id: true,
+                    Id_usuario: true,
+                    Nome: true,
+                    Foto: true,
+                    Descricao_projeto: true,
+                    Descricao_vaga: true,
+                    Usuario:{
+                        select:{
+                            Foto: true,
+                            Nome: true
+                        }
+                    }
+                }
+            });
 
             await prisma.$disconnect();
 
