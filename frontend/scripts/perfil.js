@@ -5,6 +5,22 @@ let image = ""
 let name = ""
 let desc = ""
 
+let linkFoto = ""
+let linkGithub = ""
+let linkTwitter = ""
+
+function loadImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+      const image = document.getElementById("image");
+      image.src = event.target.result;
+    };
+    
+    reader.readAsDataURL(file);
+}
+
 function edit(){
     name = document.querySelector("#name")
     image = document.querySelector("#image")
@@ -12,18 +28,114 @@ function edit(){
     const div = document.querySelector("#editable")
     
     div.innerHTML = ""
+
+    const imgInput = document.createElement("input");
+    imgInput.setAttribute("class", "form-control");
+    imgInput.setAttribute("onchange", "loadImage(event)");
+    imgInput.type = "file";
+
+    const imgShow = document.createElement("img");
+    imgShow.src = linkFoto;
+    imgShow.setAttribute("class", "rounded-circle mt-4");
+    imgShow.width = 150;
+    imgShow.height = 150;
+    imgShow.id = "image";
+
+    const labelInputNome = document.createElement("h5");
+    labelInputNome.setAttribute("class", "form-label")
+    labelInputNome.innerHTML = "Nome"
     const input = document.createElement("input")
+    input.setAttribute("class", "form-control form-control-lg");
     input.value = name.innerHTML
 
+    const hInputDescricao = document.createElement("h5");
+    hInputDescricao.setAttribute("class", "form-label mt-3");
+    hInputDescricao.innerHTML = "Descrição";
+
     const area = document.createElement("textarea")
+    area.setAttribute("class", "form-control form-control-lg");
     area.value = desc.innerHTML
+
     const b = document.createElement("button")
     b.innerHTML = "save"
     b.setAttribute("onclick", "save()")
-    b.setAttribute("class", "btn btn-primary btn-sm mb-3")
-    div.appendChild(b)
-    div.appendChild(input)
-    div.appendChild(area)
+    b.setAttribute("class", "btn btn-primary btn-sm mt-3")
+
+    const hLinkRedesSociais = document.createElement("h5");
+    hLinkRedesSociais.setAttribute("class", "form-label mt-3");
+    hLinkRedesSociais.innerHTML = "Redes sociais";
+
+
+    const divInputGrupoGithub = document.createElement("div");
+    divInputGrupoGithub.setAttribute("class", "input-group mb-3");
+    const divGithub = document.createElement("div");
+    divGithub.setAttribute("class", "input-group-prepend");
+    const spanInputGithub = document.createElement("span");
+    spanInputGithub.setAttribute("class", "input-group-text");
+    const iIconeGithub = document.createElement("i");
+    iIconeGithub.setAttribute("class", "bi bi-github");
+    const inputLinkGithub = document.createElement("input");
+    inputLinkGithub.setAttribute("class", "form-control");
+    inputLinkGithub.type = "text";
+    inputLinkGithub.id = "linkGithub";
+    inputLinkGithub.placeholder = linkGithub;
+
+    divInputGrupoGithub.appendChild(divGithub);
+    divGithub.appendChild(spanInputGithub);
+    divInputGrupoGithub.appendChild(inputLinkGithub);
+    spanInputGithub.appendChild(iIconeGithub);
+
+    const divInputGrupoTwitter = document.createElement("div");
+    divInputGrupoTwitter.setAttribute("class", "input-group mb-3");
+    const divTwitter = document.createElement("div");
+    divTwitter.setAttribute("class", "input-group-prepend");
+    const spanInputTwitter = document.createElement("span");
+    spanInputTwitter.setAttribute("class", "input-group-text");
+    const iIconeTwitter = document.createElement("i");
+    iIconeTwitter.setAttribute("class", "bi bi-twitter");
+    const inputLinkTwitter = document.createElement("input");
+    inputLinkTwitter.setAttribute("class", "form-control");
+    inputLinkTwitter.type = "text";
+    inputLinkTwitter.id = "linkTwitter";
+    inputLinkTwitter.placeholder = linkTwitter;
+
+    divInputGrupoTwitter.appendChild(divTwitter);
+    divTwitter.appendChild(spanInputTwitter);
+    divInputGrupoTwitter.appendChild(inputLinkTwitter);
+    spanInputTwitter.appendChild(iIconeTwitter);
+
+    const divInputGrupoInstagram = document.createElement("div");
+    divInputGrupoInstagram.setAttribute("class", "input-group mb-3");
+    const divInstagram = document.createElement("div");
+    divInstagram.setAttribute("class", "input-group-prepend");
+    const spanInputInstagram = document.createElement("span");
+    spanInputInstagram.setAttribute("class", "input-group-text");
+    const iIconeInstagram = document.createElement("i");
+    iIconeInstagram.setAttribute("class", "bi bi-instagram");
+    const inputLinkInstagram = document.createElement("input");
+    inputLinkInstagram.setAttribute("class", "form-control");
+    inputLinkInstagram.type = "text";
+    inputLinkInstagram.id = "linkTwitter";
+    inputLinkInstagram.placeholder = linkTwitter;
+
+    divInputGrupoInstagram.appendChild(divInstagram);
+    divInstagram.appendChild(spanInputInstagram);
+    divInputGrupoInstagram.appendChild(inputLinkInstagram);
+    spanInputInstagram.appendChild(iIconeInstagram);
+
+    div.appendChild(imgInput);
+    div.appendChild(imgShow);
+    div.appendChild(labelInputNome);
+    div.appendChild(input);
+    div.appendChild(hInputDescricao);
+    div.appendChild(area);
+    div.appendChild(hLinkRedesSociais);
+    div.appendChild(divInputGrupoGithub);
+    div.appendChild(divInputGrupoTwitter);
+    div.appendChild(divInputGrupoInstagram);
+
+    div.appendChild(b);
+
 }
 
 function save(){
@@ -47,6 +159,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     desc = document.querySelector("#desc")
 
     name.innerHTML = data.Nome;
+    linkFoto = data.Foto;
     image.setAttribute("src", data.Foto);
     if(data.Descricao != null){
         desc = data.Descricao;
@@ -68,6 +181,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     divRedesSociais.appendChild(aIconeGmail);
 
     if(data.linkGithub != null){
+        linkGithub = data.linkGithub;
         const aIconeGithub = document.createElement("a");
         aIconeGithub.setAttribute("href", data.linkGithub);
         aIconeGithub.setAttribute("class", "btn btn-primary");
@@ -81,6 +195,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     }
 
     if(data.linkTwitter != null){
+        linkTwitter = data.linkTwitterç
         const aIconeTwitter = document.createElement("a");
         aIconeTwitter.setAttribute("href", data.linkTwitter);
         aIconeTwitter.setAttribute("class", "btn btn-primary");
