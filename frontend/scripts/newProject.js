@@ -21,7 +21,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
         var aPerfil = document.getElementById("aPerfil");
         aPerfil.href = `./perfil.html?id=${id}`;
         var aLogo = document.getElementById("aLogo");
-        aLogo.href = `./home.html?id=${id};`
+        aLogo.href = `./home.html?id=${id}`;
     })
 
 

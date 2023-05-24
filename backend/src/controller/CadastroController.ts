@@ -25,7 +25,6 @@ class CadastroController{
                     Nome: nome,
                     Email: email,
                     Senha: senha,
-                    Ocupacao: ocupacoes,
                     Foto: `http://localhost:3000/uploads/${image}`,
                     Descricao: descricao,
                     linkGithub: linkGithub,

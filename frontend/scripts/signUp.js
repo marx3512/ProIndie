@@ -31,7 +31,8 @@ botao.addEventListener("click", (e) => {
     formData.append("nome", nome.value);
     formData.append("email", email.value);
     formData.append("senha", password.value);
-    formData.append("ocupacoes", occupationArea.value);
+    formData.append("ocupacao", "");
+    formData.append("descricao", occupationArea.value);
     formData.append("image", file.files[0]);
     if(linkGithub.value != ""){
       formData.append("linkGithub", linkGithub.value);
@@ -57,6 +58,8 @@ botao.addEventListener("click", (e) => {
       .then(data => {
         alert("Cadastro realizado com sucesso");
         console.log(data)
+        window.location = `http://127.0.0.1:5500/pages/login.html`;
+
       })
       .catch(error => {
         console.log("Ocorreu um erro:", error);

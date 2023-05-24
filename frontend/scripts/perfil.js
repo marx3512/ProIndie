@@ -71,7 +71,7 @@ function edit(){
 
     b.innerHTML = "save"
     //b.setAttribute("onclick", "save()")
-    b.setAttribute("class", "btn btn-primary btn-sm mt-3")
+    b.setAttribute("class", "btn btn-primary btn-sm mt-2 mb-3")
 
     const hLinkRedesSociais = document.createElement("h5");
     hLinkRedesSociais.setAttribute("class", "form-label mt-3");
@@ -220,7 +220,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     aIconeGmail.appendChild(iIconeGmail);
     divRedesSociais.appendChild(aIconeGmail);
 
-    if(data.linkGithub != ''){
+    if(data.linkGithub != '' && data.linkGithub != null){
         linkGithub = data.linkGithub;
         const aIconeGithub = document.createElement("a");
         aIconeGithub.setAttribute("href", data.linkGithub);
@@ -234,7 +234,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 
     }
 
-    if(data.linkTwitter != ''){
+    if(data.linkTwitter != '' && data.linkTwitter != null){
         linkTwitter = data.linkTwitterç
         const aIconeTwitter = document.createElement("a");
         aIconeTwitter.setAttribute("href", data.linkTwitter);
@@ -248,7 +248,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 
     }
 
-    if(data.linkInstagram != ''){
+    if(data.linkInstagram != '' && data.linkInstagram != null){
         const aIconeInstagram = document.createElement("a");
         aIconeInstagram.setAttribute("href", data.linkInstagram);
         aIconeInstagram.setAttribute("class", "btn btn-primary");
