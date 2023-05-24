@@ -3,6 +3,28 @@ const id = urlParams.get("id");
 
 var botao = document.getElementById("confirmarBtn");
 
+fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
+    method: "GET",
+})
+    .then(response => response.json())
+    .then(data => {
+        var aImg = document.getElementById("aImg");
+        var imgPerfil = document.createElement("img");
+        imgPerfil.setAttribute("class", "rounded-circle");
+        imgPerfil.width = "100";
+        imgPerfil.height = "100";
+        imgPerfil.src = data.Foto;
+        aImg.appendChild(imgPerfil);
+
+        var aNovoProjeto = document.getElementById("aNovoProjeto");
+        aNovoProjeto.href = `./newProject.html?id=${id}`
+        var aPerfil = document.getElementById("aPerfil");
+        aPerfil.href = `./perfil.html?id=${id}`;
+        var aLogo = document.getElementById("aLogo");
+        aLogo.href = `./home.html?id=${id};`
+    })
+
+
 botao.addEventListener("click", (e) => {
     var nomeProjeto = document.getElementById("nomeProjeto");
     var descricaoProjeto = document.getElementById("exampleFormControlTextarea1");

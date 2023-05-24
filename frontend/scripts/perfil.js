@@ -8,6 +8,20 @@ let desc = ""
 let linkFoto = ""
 let linkGithub = ""
 let linkTwitter = ""
+let linkInstagram = ""
+
+let b = document.createElement("button")
+const imgInput = document.createElement("input");
+const input = document.createElement("input");
+const area = document.createElement("textarea");
+const inputLinkGithub = document.createElement("input");
+const inputLinkTwitter = document.createElement("input");
+const inputLinkInstagram = document.createElement("input");
+
+let descricaoUsuario = "";
+
+let formData = new FormData();
+
 
 function loadImage(event) {
     const file = event.target.files[0];
@@ -29,7 +43,7 @@ function edit(){
     
     div.innerHTML = ""
 
-    const imgInput = document.createElement("input");
+    //INPUT DA IMAGEM
     imgInput.setAttribute("class", "form-control");
     imgInput.setAttribute("onchange", "loadImage(event)");
     imgInput.type = "file";
@@ -44,28 +58,26 @@ function edit(){
     const labelInputNome = document.createElement("h5");
     labelInputNome.setAttribute("class", "form-label")
     labelInputNome.innerHTML = "Nome"
-    const input = document.createElement("input")
+    //INPUT DO NOME
     input.setAttribute("class", "form-control form-control-lg");
     input.value = name.innerHTML
 
     const hInputDescricao = document.createElement("h5");
     hInputDescricao.setAttribute("class", "form-label mt-3");
     hInputDescricao.innerHTML = "Descrição";
-
-    const area = document.createElement("textarea")
+    //INPUT DA DESCRICAO
     area.setAttribute("class", "form-control form-control-lg");
-    area.value = desc.innerHTML
+    area.value = descricaoUsuario;
 
-    const b = document.createElement("button")
     b.innerHTML = "save"
-    b.setAttribute("onclick", "save()")
+    //b.setAttribute("onclick", "save()")
     b.setAttribute("class", "btn btn-primary btn-sm mt-3")
 
     const hLinkRedesSociais = document.createElement("h5");
     hLinkRedesSociais.setAttribute("class", "form-label mt-3");
     hLinkRedesSociais.innerHTML = "Redes sociais";
 
-
+    //LINK DO GITHUB
     const divInputGrupoGithub = document.createElement("div");
     divInputGrupoGithub.setAttribute("class", "input-group mb-3");
     const divGithub = document.createElement("div");
@@ -74,17 +86,16 @@ function edit(){
     spanInputGithub.setAttribute("class", "input-group-text");
     const iIconeGithub = document.createElement("i");
     iIconeGithub.setAttribute("class", "bi bi-github");
-    const inputLinkGithub = document.createElement("input");
     inputLinkGithub.setAttribute("class", "form-control");
     inputLinkGithub.type = "text";
     inputLinkGithub.id = "linkGithub";
-    inputLinkGithub.placeholder = linkGithub;
+    inputLinkGithub.value = linkGithub;
 
     divInputGrupoGithub.appendChild(divGithub);
     divGithub.appendChild(spanInputGithub);
     divInputGrupoGithub.appendChild(inputLinkGithub);
     spanInputGithub.appendChild(iIconeGithub);
-
+    //LINK DO TWITTER
     const divInputGrupoTwitter = document.createElement("div");
     divInputGrupoTwitter.setAttribute("class", "input-group mb-3");
     const divTwitter = document.createElement("div");
@@ -93,17 +104,16 @@ function edit(){
     spanInputTwitter.setAttribute("class", "input-group-text");
     const iIconeTwitter = document.createElement("i");
     iIconeTwitter.setAttribute("class", "bi bi-twitter");
-    const inputLinkTwitter = document.createElement("input");
     inputLinkTwitter.setAttribute("class", "form-control");
     inputLinkTwitter.type = "text";
     inputLinkTwitter.id = "linkTwitter";
-    inputLinkTwitter.placeholder = linkTwitter;
+    inputLinkTwitter.value = linkTwitter;
 
     divInputGrupoTwitter.appendChild(divTwitter);
     divTwitter.appendChild(spanInputTwitter);
     divInputGrupoTwitter.appendChild(inputLinkTwitter);
     spanInputTwitter.appendChild(iIconeTwitter);
-
+    //LINK DO INSTAGRAM
     const divInputGrupoInstagram = document.createElement("div");
     divInputGrupoInstagram.setAttribute("class", "input-group mb-3");
     const divInstagram = document.createElement("div");
@@ -112,11 +122,10 @@ function edit(){
     spanInputInstagram.setAttribute("class", "input-group-text");
     const iIconeInstagram = document.createElement("i");
     iIconeInstagram.setAttribute("class", "bi bi-instagram");
-    const inputLinkInstagram = document.createElement("input");
     inputLinkInstagram.setAttribute("class", "form-control");
     inputLinkInstagram.type = "text";
     inputLinkInstagram.id = "linkTwitter";
-    inputLinkInstagram.placeholder = linkTwitter;
+    inputLinkInstagram.value = linkInstagram;
 
     divInputGrupoInstagram.appendChild(divInstagram);
     divInstagram.appendChild(spanInputInstagram);
@@ -133,8 +142,38 @@ function edit(){
     div.appendChild(divInputGrupoGithub);
     div.appendChild(divInputGrupoTwitter);
     div.appendChild(divInputGrupoInstagram);
-
+    
     div.appendChild(b);
+    console.log(input.value);
+
+    b.addEventListener("click", (e) => {
+        createForm();
+    })
+}
+
+function createForm(){
+    formData.append("image", imgInput.files[0]);
+    formData.append("nome", input.value);
+    formData.append("descricao", area.value);
+    formData.append("linkGithub", inputLinkGithub.value);
+    formData.append("linkTwitter", inputLinkTwitter.value);
+    formData.append("linkInstagram", inputLinkInstagram.value);
+
+    fetch(`http://localhost:3000/usuario/${id}`, {
+            method: "PUT",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Dados atualizados");
+            console.log(input.value);
+
+            console.log(data);
+            //window.location.reload();
+        })
+        .catch(error => {
+            console.log("Ocorreu um erro:", error);
+        })
 
 }
 
@@ -161,8 +200,9 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     name.innerHTML = data.Nome;
     linkFoto = data.Foto;
     image.setAttribute("src", data.Foto);
-    if(data.Descricao != null){
-        desc = data.Descricao;
+    
+    if(data.Descricao != ''){
+        desc.innerHTML = data.Descricao;
     }
     else{
         desc.innerHTML = "Descricao vazia";
@@ -180,7 +220,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     aIconeGmail.appendChild(iIconeGmail);
     divRedesSociais.appendChild(aIconeGmail);
 
-    if(data.linkGithub != null){
+    if(data.linkGithub != ''){
         linkGithub = data.linkGithub;
         const aIconeGithub = document.createElement("a");
         aIconeGithub.setAttribute("href", data.linkGithub);
@@ -194,7 +234,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 
     }
 
-    if(data.linkTwitter != null){
+    if(data.linkTwitter != ''){
         linkTwitter = data.linkTwitterç
         const aIconeTwitter = document.createElement("a");
         aIconeTwitter.setAttribute("href", data.linkTwitter);
@@ -208,7 +248,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 
     }
 
-    if(data.linkInstagram != null){
+    if(data.linkInstagram != ''){
         const aIconeInstagram = document.createElement("a");
         aIconeInstagram.setAttribute("href", data.linkInstagram);
         aIconeInstagram.setAttribute("class", "btn btn-primary");
@@ -233,7 +273,14 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     aNovoProjeto.href = `./newProject.html?id=${id}`
     const aPerfil = document.getElementById("aPerfil");
     aPerfil.href = `./perfil.html?id=${id}`;
+    const aLogo = document.getElementById("aLogo");
+    aLogo.href = `./home.html?id=${id}`;
 
+
+    descricaoUsuario = data.Descricao;
+    linkGithub = data.linkGithub;
+    linkTwitter = data.linkTwitter;
+    linkInstagram = data.linkInstagram;
 })
 
 fetch(`http://localhost:3000/projeto/${id}`)

@@ -44,10 +44,24 @@ class CadastroController{
 
     async update(req: Request, res: Response){
         try {
-            const {
+           const {
                 nome,
-                email
+                descricao,
+                linkGithub,
+                linkTwitter,
+                linkInstagram
             } = req.body;
+
+            const reqImage = req.file;
+            const image = reqImage?.filename;
+            
+            console.log(req.body);
+            console.log(image);
+            /*const { body } = req;
+            const keys = Object.keys(body);
+
+            let updateUsuario = atualizarCampos(keys, body);
+            console.log(updateUsuario);*/
 
             const id = Number(req.params.id);
             
@@ -63,19 +77,46 @@ class CadastroController{
                 return res.status(200).json("Elemento nao encontrado");
             }
 
-            const result = await prisma.usuario.update({
-                where:{
-                    Id: id
-                },
-                data:{
-                    Nome: nome,
-                    Email: email
-                }
-            })
+            if(image == undefined){
+                console.log("tes");
+                const result = await prisma.usuario.update({
+                    where:{
+                        Id: id
+                    },
+                    data:{
+                        Nome: nome,
+                        //Foto: `http://localhost:3000/uploads/${image}`,
+                        Descricao: descricao,
+                        linkGithub: linkGithub,
+                        linkTwitter: linkTwitter,
+                        linkInstagram: linkInstagram
+                    }
+                })
+
+                return res.status(200).json(result);
+
+            }
+            else{
+                console.log("testes");
+                const result = await prisma.usuario.update({
+                    where:{
+                        Id: id
+                    },
+                    data:{
+                        Nome: nome,
+                        Foto: `http://localhost:3000/uploads/${image}`,
+                        Descricao: descricao,
+                        linkGithub: linkGithub,
+                        linkTwitter: linkTwitter,
+                        linkInstagram: linkInstagram
+                    }
+                })
+
+                return res.status(200).json(result);
+            }
 
             await prisma.$disconnect();
 
-            return res.status(200).json(result);
         } catch (e) {
             if(e instanceof Error){
                 return res.status(400).json(e.message);
@@ -160,6 +201,18 @@ class CadastroController{
             }
         }
     }
+}
+
+function atualizarCampos(keys: string[], body: any){
+    let updateFinal = {};
+    
+    for(let i = 0; i < keys.length; i +=1) {
+        const key = keys[i];
+
+        updateFinal = { ...updateFinal, [key]: body[key] }
+    }
+
+    return updateFinal;
 }
 
 export default new CadastroController();
