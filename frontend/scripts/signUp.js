@@ -1,6 +1,14 @@
 var botao = document.getElementById("confirmarBtn");
 
 botao.addEventListener("click", (e) => {
+    botao.setAttribute("disabled", "");
+    const spinner = document.createElement("span");
+    spinner.setAttribute("class", "spinner-border spinner-border-sm");
+    spinner.setAttribute("role", "status");
+    spinner.setAttribute("aria-hidden", "true");
+    botao.innerHTML = "Processando informações "
+    botao.appendChild(spinner);
+
     var file = document.getElementById("formFile");
     var nome = document.getElementById("typeNomeX");
     var email = document.getElementById("typeEmailX");

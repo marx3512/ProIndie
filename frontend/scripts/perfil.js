@@ -1,5 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
+const idUsuarioLogado = urlParams.get("idUsuario");
 
 let image = ""
 let name = ""
@@ -19,6 +20,11 @@ const inputLinkGithub = document.createElement("input");
 const inputLinkTwitter = document.createElement("input");
 const inputLinkInstagram = document.createElement("input");
 const divTabelaProjeto = document.getElementById("tabelaProjetos");
+const botaoEdit = document.getElementById("botaoEdit");
+
+if(id != idUsuarioLogado){
+    botaoEdit.setAttribute("hidden", "")   
+}
 
 let descricaoUsuario = "";
 
@@ -221,7 +227,6 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 })
 .then(response => response.json())
 .then(data => {
-    spinner.setAttribute("hidden", "");
     spinnerPerfilInformation.setAttribute("hidden", "");
     name = document.querySelector("#name")
     image = document.querySelector("#image")
@@ -257,6 +262,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
         aIconeGithub.setAttribute("class", "btn btn-primary");
         aIconeGithub.setAttribute("style", "background-color: #333333");
         aIconeGithub.setAttribute("role", "button");
+        aIconeGithub.setAttribute("target", "_blank");
         const iIconeGithub = document.createElement("i");
         iIconeGithub.setAttribute("class", "bi bi-github");
         aIconeGithub.appendChild(iIconeGithub);
@@ -271,6 +277,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
         aIconeTwitter.setAttribute("class", "btn btn-primary");
         aIconeTwitter.setAttribute("style", "background-color: #55acee");
         aIconeTwitter.setAttribute("role", "button");
+        aIconeTwitter.setAttribute("target", "_blank");
         const iIconeTwitter = document.createElement("i");
         iIconeTwitter.setAttribute("class", "bi bi-twitter");
         aIconeTwitter.appendChild(iIconeTwitter);
@@ -284,6 +291,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
         aIconeInstagram.setAttribute("class", "btn btn-primary");
         aIconeInstagram.setAttribute("style", "background-color: #ac2bac");
         aIconeInstagram.setAttribute("role", "button");
+        aIconeInstagram.setAttribute("target", "_blank");
         const iIconeInstagram = document.createElement("i");
         iIconeInstagram.setAttribute("class", "bi bi-instagram");
         aIconeInstagram.appendChild(iIconeInstagram);
@@ -291,6 +299,18 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 
     }
 
+    descricaoUsuario = data.Descricao;
+    linkGithub = data.linkGithub;
+    linkTwitter = data.linkTwitter;
+    linkInstagram = data.linkInstagram;
+})
+
+fetch(`http://localhost:3000/usuario/pegarUmUsuario/${idUsuarioLogado}`,{
+    method: "GET"
+})
+.then(response => response.json())
+.then(data => {
+    spinner.setAttribute("hidden", "");
     const aImg = document.getElementById("aImg");
     const imgPerfil = document.createElement("img");
     imgPerfil.src = data.Foto;
@@ -300,17 +320,11 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     aImg.appendChild(imgPerfil);
 
     const aNovoProjeto = document.getElementById("aNovoProjeto");
-    aNovoProjeto.href = `./newProject.html?id=${id}`
+    aNovoProjeto.href = `./newProject.html?id=${idUsuarioLogado}`
     const aPerfil = document.getElementById("aPerfil");
-    aPerfil.href = `./perfil.html?id=${id}`;
+    aPerfil.href = `./perfil.html?id=${idUsuarioLogado}&idUsuario=${idUsuarioLogado}`;
     const aLogo = document.getElementById("aLogo");
-    aLogo.href = `./home.html?id=${id}`;
-
-
-    descricaoUsuario = data.Descricao;
-    linkGithub = data.linkGithub;
-    linkTwitter = data.linkTwitter;
-    linkInstagram = data.linkInstagram;
+    aLogo.href = `./home.html?id=${idUsuarioLogado}`;
 })
 
 fetch(`http://localhost:3000/projeto/${id}`)

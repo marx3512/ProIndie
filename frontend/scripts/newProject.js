@@ -29,7 +29,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
         var aNovoProjeto = document.getElementById("aNovoProjeto");
         aNovoProjeto.href = `./newProject.html?id=${id}`
         var aPerfil = document.getElementById("aPerfil");
-        aPerfil.href = `./perfil.html?id=${id}`;
+        aPerfil.href = `./perfil.html?id=${id}&idUsuario=${id}`;
         var aLogo = document.getElementById("aLogo");
         aLogo.href = `./home.html?id=${id}`;
     })

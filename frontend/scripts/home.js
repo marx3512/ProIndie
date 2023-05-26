@@ -36,7 +36,7 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
         aNovoProjeto.href = `./newProject.html?id=${id}`;
 
         const aPerfil = document.getElementById("perfil");
-        aPerfil.href = `./perfil.html?id=${id}`;
+        aPerfil.href = `./perfil.html?id=${id}&idUsuario=${id}`;
 
     })
 
@@ -70,7 +70,7 @@ fetch(`http://localhost:3000/projeto/`, {
 
             const aPaginaProjeto = document.createElement("a");
             aPaginaProjeto.setAttribute("class", "btn btn-primary");
-            aPaginaProjeto.setAttribute("href", `./projectView.html?id=${elemento.Id}`)
+            aPaginaProjeto.setAttribute("href", `./projectView.html?id=${elemento.Id}&idUsuario=${id}`);
             aPaginaProjeto.innerHTML = "Pagina projeto";
 
             divTabelaCartas.appendChild(divCol);
