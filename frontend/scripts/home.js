@@ -1,12 +1,29 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
 
+const aImage = document.getElementById("aImage");
+const spinnerPerfil = document.getElementById("spinnerPerfil");
+const spinnerProjetos = document.getElementById("spinnerProjetos");
+
+const spinner = document.createElement("span");
+spinner.setAttribute("class", "spinner-border");
+spinner.setAttribute("role", "status");
+spinner.setAttribute("aria-hidden", "true");
+spinnerPerfil.appendChild(spinner);
+
+const spanSpinnerProjetos = document.createElement("span");
+spanSpinnerProjetos.setAttribute("class", "spinner-border text-center");
+spanSpinnerProjetos.setAttribute("role", "status");
+spanSpinnerProjetos.setAttribute("aria-hidden", "true");
+spinnerProjetos.appendChild(spanSpinnerProjetos);
+
 fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     method: "GET",
 })
     .then(response => response.json())
     .then(data => {
-        const aImage = document.getElementById("aImage");
+        spinner.setAttribute("hidden", "");
+        spanSpinnerProjetos.setAttribute("hidden", "");
         const img = document.createElement("img");
 
         img.setAttribute("class", "rounded-circle");

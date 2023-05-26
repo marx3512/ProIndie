@@ -1,13 +1,54 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
 
+const divNomeProjeto = document.getElementById("nomeProjeto");
+const divDescricaoProjeto = document.getElementById("descricaoProjeto");
+const divDescricaoVaga = document.getElementById("descricaoVaga");
+
+const spinnerPerfil = document.getElementById("spinnerPerfil");
+const spinnerPerfilColaborador = document.getElementById("spinnerPerfilColaborador");
+
+const spinner = document.createElement("span");
+spinner.setAttribute("class", "spinner-border");
+spinner.setAttribute("role", "status");
+spinner.setAttribute("aria-hidden", "true");
+spinnerPerfil.appendChild(spinner);
+
+const spanSpinnerPerfil = document.createElement("span");
+spanSpinnerPerfil.setAttribute("class", "spinner-border");
+spanSpinnerPerfil.setAttribute("role", "status");
+spanSpinnerPerfil.setAttribute("aria-hidden", "true");
+spinnerPerfilColaborador.appendChild(spanSpinnerPerfil);
+
+const spanSpinnerProjeto = document.createElement("span");
+spanSpinnerProjeto.setAttribute("class", "spinner-border");
+spanSpinnerProjeto.setAttribute("role", "status");
+spanSpinnerProjeto.setAttribute("aria-hidden", "true");
+divNomeProjeto.appendChild(spanSpinnerProjeto);
+
+const spanSpinnerDescricaoProjeto = document.createElement("span");
+spanSpinnerDescricaoProjeto.setAttribute("class", "spinner-border");
+spanSpinnerDescricaoProjeto.setAttribute("role", "status");
+spanSpinnerDescricaoProjeto.setAttribute("aria-hidden", "true");
+divDescricaoProjeto.appendChild(spanSpinnerDescricaoProjeto);
+
+const spanSpinnerDescricaoVaga = document.createElement("span");
+spanSpinnerDescricaoVaga.setAttribute("class", "spinner-border");
+spanSpinnerDescricaoVaga.setAttribute("role", "status");
+spanSpinnerDescricaoVaga.setAttribute("aria-hidden", "true");
+divDescricaoVaga.appendChild(spanSpinnerDescricaoVaga);
 
 fetch(`http://localhost:3000/projeto/pegarUmProjeto/${id}`, {
     method: "GET"
 })
 .then(response => response.json())
 .then(data => {
-    const divNomeProjeto = document.getElementById("nomeProjeto");
+    spinner.setAttribute("hidden", "");
+    spanSpinnerPerfil.setAttribute("hidden", "");
+    spanSpinnerProjeto.setAttribute("hidden", "");
+    spanSpinnerDescricaoProjeto.setAttribute("hidden", "");
+    spanSpinnerDescricaoVaga.setAttribute("hidden", "");
+    //const divNomeProjeto = document.getElementById("nomeProjeto");
     const hNomeProjeto = document.createElement("h4");
     hNomeProjeto.innerHTML = data[0].Nome;
 
@@ -20,14 +61,12 @@ fetch(`http://localhost:3000/projeto/pegarUmProjeto/${id}`, {
     divNomeProjeto.appendChild(hNomeProjeto);
     divImgProjeto.appendChild(imgProjeto);
 
-    const divDescricaoProjeto = document.getElementById("descricaoProjeto");
     const pDescricaoProjeto = document.createElement("p");
     pDescricaoProjeto.setAttribute("class", "card-text");
     pDescricaoProjeto.innerHTML = data[0].Descricao_projeto;
 
     divDescricaoProjeto.appendChild(pDescricaoProjeto);
 
-    const divDescricaoVaga = document.getElementById("descricaoVaga");
     const pDescricaoVaga = document.createElement("p");
     pDescricaoVaga.setAttribute("class", "card-text");
     console.log(data[0].Descricao_vaga);

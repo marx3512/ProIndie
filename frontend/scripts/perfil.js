@@ -10,15 +10,39 @@ let linkGithub = ""
 let linkTwitter = ""
 let linkInstagram = ""
 
-let b = document.createElement("button")
+let b = document.createElement("button");
+const div = document.querySelector("#editable")
 const imgInput = document.createElement("input");
 const input = document.createElement("input");
 const area = document.createElement("textarea");
 const inputLinkGithub = document.createElement("input");
 const inputLinkTwitter = document.createElement("input");
 const inputLinkInstagram = document.createElement("input");
+const divTabelaProjeto = document.getElementById("tabelaProjetos");
 
 let descricaoUsuario = "";
+
+const spinnerPerfil = document.getElementById("spinnerPerfil");
+
+const spinner = document.createElement("span");
+spinner.setAttribute("class", "spinner-border");
+spinner.setAttribute("role", "status");
+spinner.setAttribute("aria-hidden", "true");
+
+spinnerPerfil.appendChild(spinner);
+
+const spinnerPerfilInformation = document.createElement("span");
+spinnerPerfilInformation.setAttribute("class", "spinner-border");
+spinnerPerfilInformation.setAttribute("role", "status");
+spinnerPerfilInformation.setAttribute("aria-hidden", "true");
+
+const spinnerProjetos = document.createElement("span");
+spinnerProjetos.setAttribute("class", "spinner-border");
+spinnerProjetos.setAttribute("role", "status");
+spinnerProjetos.setAttribute("aria-hidden", "true");
+
+div.appendChild(spinnerPerfilInformation);
+divTabelaProjeto.appendChild(spinnerProjetos);
 
 let formData = new FormData();
 
@@ -39,7 +63,7 @@ function edit(){
     name = document.querySelector("#name")
     image = document.querySelector("#image")
     desc = document.querySelector("#desc")
-    const div = document.querySelector("#editable")
+    //const div = document.querySelector("#editable")
     
     div.innerHTML = ""
 
@@ -148,6 +172,13 @@ function edit(){
 
     b.addEventListener("click", (e) => {
         createForm();
+        b.setAttribute("disabled", "");
+        const spinner = document.createElement("span");
+        spinner.setAttribute("class", "spinner-border spinner-border-sm");
+        spinner.setAttribute("role", "status");
+        spinner.setAttribute("aria-hidden", "true");
+        b.innerHTML = "Carregando "
+        b.appendChild(spinner);
     })
 }
 
@@ -166,10 +197,7 @@ function createForm(){
         .then(response => response.json())
         .then(data => {
             alert("Dados atualizados");
-            console.log(input.value);
-
-            console.log(data);
-            //window.location.reload();
+            window.location.reload(true);
         })
         .catch(error => {
             console.log("Ocorreu um erro:", error);
@@ -193,6 +221,8 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 })
 .then(response => response.json())
 .then(data => {
+    spinner.setAttribute("hidden", "");
+    spinnerPerfilInformation.setAttribute("hidden", "");
     name = document.querySelector("#name")
     image = document.querySelector("#image")
     desc = document.querySelector("#desc")
@@ -286,7 +316,8 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 fetch(`http://localhost:3000/projeto/${id}`)
 .then(response => response.json())
 .then(data => {
-    const divTabelaProjeto = document.getElementById("tabelaProjetos");
+    //const divTabelaProjeto = document.getElementById("tabelaProjetos");
+    spinnerProjetos.setAttribute("hidden", "");
     data.map(elemento => {
         const divCol = document.createElement("div");
         divCol.setAttribute("class", "col-sm-6 mb-3")

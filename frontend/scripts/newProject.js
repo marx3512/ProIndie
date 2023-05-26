@@ -3,11 +3,21 @@ const id = urlParams.get("id");
 
 var botao = document.getElementById("confirmarBtn");
 
+const spinnerPerfil = document.getElementById("spinnerPerfil");
+
+const spinner = document.createElement("span");
+spinner.setAttribute("class", "spinner-border");
+spinner.setAttribute("role", "status");
+spinner.setAttribute("aria-hidden", "true");
+
+spinnerPerfil.appendChild(spinner);
+
 fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
     method: "GET",
 })
     .then(response => response.json())
     .then(data => {
+        spinner.setAttribute("hidden", "");
         var aImg = document.getElementById("aImg");
         var imgPerfil = document.createElement("img");
         imgPerfil.setAttribute("class", "rounded-circle");
@@ -26,6 +36,15 @@ fetch(`http://localhost:3000/usuario/pegarUmUsuario/${id}`, {
 
 
 botao.addEventListener("click", (e) => {
+    botao.setAttribute("disabled", "");
+    const spinnerButton = document.createElement("span");
+    spinnerButton.setAttribute("class", "spinner-border spinner-border-sm");
+    spinnerButton.setAttribute("role", "status");
+    spinnerButton.setAttribute("aria-hidden", "true");
+    botao.innerHTML = "Carregando "
+
+    botao.appendChild(spinnerButton);
+
     var nomeProjeto = document.getElementById("nomeProjeto");
     var descricaoProjeto = document.getElementById("exampleFormControlTextarea1");
     var descricaoVaga = document.getElementById("descricaoVaga");
@@ -50,6 +69,7 @@ botao.addEventListener("click", (e) => {
         .then(data => {
             alert("Cadastro do projeto realizado com sucesso");
             console.log(data)
+            window.location = `http://127.0.0.1:5500/pages/home.html?id=${id}`;
         })
         .catch(error => {
             console.log("Ocorreu um erro:", error);

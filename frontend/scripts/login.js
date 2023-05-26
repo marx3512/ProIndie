@@ -3,6 +3,13 @@ var botao = document.getElementById("confirmarBtn");
 export var idLogin = 0
 
 botao.addEventListener("click", (e) => {
+    botao.setAttribute("disabled", "");
+    const spinner = document.createElement("span");
+    spinner.setAttribute("class", "spinner-border spinner-border-sm");
+    spinner.setAttribute("role", "status");
+    spinner.setAttribute("aria-hidden", "true");
+    botao.innerHTML = "Carregando "
+
     var email = document.getElementById("typeEmailX");
     var password = document.getElementById("typePasswordX");
 
@@ -15,6 +22,8 @@ botao.addEventListener("click", (e) => {
         alert("Existe alguns campos vazios");
         e.preventDefault();
     }
+
+    botao.appendChild(spinner);
 
     fetch("http://localhost:3000/usuario/logar", {
         method: "POST",
