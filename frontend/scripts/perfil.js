@@ -356,7 +356,7 @@ fetch(`http://localhost:3000/projeto/${id}`)
 
         const aPaginaProjeto = document.createElement("a");
         aPaginaProjeto.setAttribute("class", "btn btn-primary");
-        aPaginaProjeto.href = `./projectView.html?id=${elemento.Id}`;
+        aPaginaProjeto.href = `./projectView.html?id=${elemento.Id}&idUsuario=${elemento.Id_usuario}`;
         aPaginaProjeto.innerHTML = "Pagina do projeto"
 
         divTabelaProjeto.appendChild(divCol);
