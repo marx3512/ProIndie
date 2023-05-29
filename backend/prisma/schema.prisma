@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://bessapontes11:351210@mysql.bessapontes.com.br:5432/bessapontes11
 }
 
 model Projetos {

@@ -77,6 +77,7 @@ function edit(){
     imgInput.setAttribute("class", "form-control");
     imgInput.setAttribute("onchange", "loadImage(event)");
     imgInput.type = "file";
+    imgInput.innerText = "Mudar foto de perfil"
 
     const imgShow = document.createElement("img");
     imgShow.src = linkFoto;
